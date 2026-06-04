@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calculateur RisoLab CDP</title>
+  <link rel="stylesheet" href="Site/style/style.css">
+  <link rel="icon" href="Site/style/ressources/logorisolab.jpg">
+</head>
+
+<body>
+
+  <h1>CALCULATEUR RISOLAB</h1>
+  <h4>Champ des possibles</h4>
+  <img id="logoriso" src="Site/style/ressources/logorisolab.jpg" alt="logorisolab">
+  <img id="logoriso2" src="Site/style/ressources/logorisolab.jpg" alt="logorisolab">
+
+  <!-- Toggle Devis / Facture -->
+  <div id="toggle-doc">
+    <button type="button" id="btn-devis" class="toggle-actif" onclick="setMode('devis')">DEVIS</button>
+    <button type="button" id="btn-facture" onclick="setMode('facture')">FACTURE</button>
+  </div>
+
+  <!-- Infos devis -->
+  <h2 id="label-section-doc">Devis</h2>
+  <div class="deux-col">
+    <div class="champ">
+      <label>Numéro</label>
+      <input type="text" id="devisNumero" placeholder="Ex : 2026_001">
+    </div>
+    <div class="champ">
+      <label>Date</label>
+      <input type="text" id="devisDate">
+    </div>
+  </div>
+
+  <!-- Infos client -->
+  <h2>Client</h2>
+  <div class="deux-col">
+    <div class="champ">
+      <label>Nom / Structure</label>
+      <input type="text" id="clientNom" placeholder="Nom Prénom / Studio">
+    </div>
+    <div class="champ">
+      <label>Contact</label>
+      <input type="text" id="clientContact" placeholder="Mél / Tel">
+    </div>
+  </div>
+  <div class="deux-col">
+    <div class="champ">
+      <label>Siret (si possible)</label>
+      <input type="text" id="clientSiret" placeholder="XXX XXX XXX XXXXX">
+    </div>
+    <div class="champ">
+      <label>Adresse du client</label>
+      <input type="text" id="clientAdresse" placeholder="Ferme de La Mhotte, 03210 Saint Menoux">
+    </div>
+  </div>
+
+  <!-- Copies & masters -->
+  <h2>Impression</h2>
+  <div class="ligne">
+    <input type="checkbox" id="ck_copies" onchange="toggle('copies')">
+    <label for="ck_copies">Copies</label>
+    <span class="prix">0,10 €/u.</span>
+    <input type="number" id="copies" min="0" value="1" disabled data-prix="0.10" data-label="Copies"
+      data-unite="copie(s)">
+  </div>
+  <div class="ligne">
+    <input type="checkbox" id="ck_masters" onchange="toggle('masters')">
+    <label for="ck_masters">Masters</label>
+    <span class="prix">2,00 €/u.</span>
+    <input type="number" id="masters" min="0" value="1" disabled data-prix="2.00" data-label="Masters"
+      data-unite="master(s)">
+  </div>
+
+  <!-- Papiers -->
+  <h2>Papier A3</h2>
+  <div class="ligne"><input type="checkbox" id="ck_cf80" onchange="toggle('cf80')"><label for="ck_cf80">Claire-Fontaine
+      80g</label><span class="prix">0,05 €/f.</span><input type="number" id="cf80" min="0" value="1" disabled
+      data-prix="0.05" data-label="Claire-Fontaine 80g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_cf160" onchange="toggle('cf160')"><label
+      for="ck_cf160">Claire-Fontaine 160g</label><span class="prix">0,20 €/f.</span><input type="number" id="cf160"
+      min="0" value="1" disabled data-prix="0.20" data-label="Claire-Fontaine 160g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_m115" onchange="toggle('m115')"><label for="ck_m115">Munchen
+      115g</label><span class="prix">0,30 €/f.</span><input type="number" id="m115" min="0" value="1" disabled
+      data-prix="0.30" data-label="Munchen 115g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_m170" onchange="toggle('m170')"><label for="ck_m170">Munchen
+      170g</label><span class="prix">0,50 €/f.</span><input type="number" id="m170" min="0" value="1" disabled
+      data-prix="0.50" data-label="Munchen 170g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_m300" onchange="toggle('m300')"><label for="ck_m300">Munchen
+      300g</label><span class="prix">0,60 €/f.</span><input type="number" id="m300" min="0" value="1" disabled
+      data-prix="0.60" data-label="Munchen 300g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_cy80" onchange="toggle('cy80')"><label for="ck_cy80">Cyclus
+      80g</label><span class="prix">0,06 €/f.</span><input type="number" id="cy80" min="0" value="1" disabled
+      data-prix="0.06" data-label="Cyclus 80g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_cy90" onchange="toggle('cy90')"><label for="ck_cy90">Cyclus
+      90g</label><span class="prix">0,10 €/f.</span><input type="number" id="cy90" min="0" value="1" disabled
+      data-prix="0.10" data-label="Cyclus 90g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_cy115" onchange="toggle('cy115')"><label for="ck_cy115">Cyclus
+      115g</label><span class="prix">0,30 €/f.</span><input type="number" id="cy115" min="0" value="1" disabled
+      data-prix="0.30" data-label="Cyclus 115g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_cy170" onchange="toggle('cy170')"><label for="ck_cy170">Cyclus
+      170g</label><span class="prix">0,50 €/f.</span><input type="number" id="cy170" min="0" value="1" disabled
+      data-prix="0.50" data-label="Cyclus 170g" data-unite="feuille(s)"></div>
+  <div class="ligne"><input type="checkbox" id="ck_cy250" onchange="toggle('cy250')"><label for="ck_cy250">Cyclus
+      250g</label><span class="prix">0,60 €/f.</span><input type="number" id="cy250" min="0" value="1" disabled
+      data-prix="0.60" data-label="Cyclus 250g" data-unite="feuille(s)"></div>
+
+  <!-- Main d'œuvre -->
+  <h2>Main d'œuvre</h2>
+  <div class="ligne"><input type="checkbox" id="ck_mo_cdp" onchange="toggle('mo_cdp')"><label
+      for="ck_mo_cdp">CDP</label><span class="prix">0 €/dj.</span><input type="number" id="mo_cdp" min="0" value="1"
+      disabled data-prix="0" data-label="Main d'œuvre — CDP" data-unite="demi-j."></div>
+  <div class="ligne"><input type="checkbox" id="ck_mo_coulisse" onchange="toggle('mo_coulisse')"><label
+      for="ck_mo_coulisse">Coulisse</label><span class="prix">10 €/dj.</span><input type="number" id="mo_coulisse"
+      min="0" value="1" disabled data-prix="10" data-label="Main d'œuvre — Coulisse" data-unite="demi-j."></div>
+  <div class="ligne"><input type="checkbox" id="ck_mo_adherent" onchange="toggle('mo_adherent')"><label
+      for="ck_mo_adherent">Adhérent</label><span class="prix">15 €/dj.</span><input type="number" id="mo_adherent"
+      min="0" value="1" disabled data-prix="15" data-label="Main d'œuvre — Adhérent" data-unite="demi-j."></div>
+  <div class="ligne"><input type="checkbox" id="ck_mo_exterieur" onchange="toggle('mo_exterieur')"><label
+      for="ck_mo_exterieur">Extérieur</label><span class="prix">20 €/dj.</span><input type="number" id="mo_exterieur"
+      min="0" value="1" disabled data-prix="20" data-label="Main d'œuvre — Extérieur" data-unite="demi-j."></div>
+
+  <!-- Adhésion -->
+  <h2>Adhésion et Atelier</h2>
+  <div class="ligne">
+    <input type="checkbox" id="ck_adhesion">
+    <label for="ck_adhesion">Adhésion atelier Riso CDP</label>
+    <span class="prix">10 €/an</span>
+    <span></span>
+  </div>
+
+  <!-- Atelier initiation — avec quantité nombre de personnes -->
+  <div class="ligne">
+    <input type="checkbox" id="ck_atelier" onchange="document.getElementById('atelier_qte').disabled = !this.checked">
+    <label for="ck_atelier">Atelier d'initiation Riso CDP</label>
+    <span class="prix">15 €/pers.</span>
+    <input type="number" id="atelier_qte" min="1" max="4" value="1" disabled>
+  </div>
+
+  <!-- Désignations libres -->
+  <h2>Divers</h2>
+  <div id="zone-divers"></div>
+  <!-- Bouton pour ajouter une ligne libre -->
+  <button type="button" id="btn-ajouter" onclick="ajouterDivers()">+ Ajouter un produit</button>
+
+  <!-- Note -->
+  <h2>Note / Commentaire</h2>
+  <div class="champ">
+
+    <textarea id="commentaire" placeholder="Conditions particulières..."></textarea>
+  </div>
+
+  <button id="btn-generer" onclick="genererDevis()">CRÉATION DEVIS</button>
+
+
+  <!-- =============================================
+     DEVIS IMPRIMÉ
+     ============================================= -->
+  <div id="devis-print">
+
+    <div class="dv-header">
+      <div class="dv-logo">
+        <img src="Site/style/ressources/logorisolab.jpg" style="width:95px;">
+      </div>
+      <div class="dv-meta">
+        <strong>RISOLAB</strong><br>
+        Association Champ des Possibles<br>
+        Ferme de La Mhotte, 03210 Saint Menoux<br>
+        Siret : 395 220 304 00012 - APE 9002 Z<br>
+        contact@champdespossibles.fr
+      </div>
+      <div id="dv-client">
+        <h3>Client</h3>
+        <span id="dvClient"></span><br>
+        <span id="dvAdresse"></span><br>
+        <span id="dvSiret"></span><br>
+        <span id="dvContact"></span>
+
+
+      </div>
+    </div>
+
+    <hr>
+
+    <div id="dv-numero">
+      <span id="dv-label-doc">Devis n°</span> <span id="dvNumero"></span> &nbsp;·&nbsp; Date : <span id="dvDate"></span>
+    </div>
+
+    <hr>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:42%;color:#007f3d;">Désignation</th>
+          <th style="width:14%;text-align:center;color:#007f3d;">Qté</th>
+          <th style="width:22%;text-align:right;color:#007f3d;">P.U. TTC</th>
+          <th style="width:22%;color:#007f3d;">Sous-total TTC</th>
+        </tr>
+      </thead>
+      <tbody id="dvTableau"></tbody>
+    </table>
+
+    <div class="dv-total" id="dvTotal"></div>
+
+
+    <!-- Prix unitaire par copie — masqué si pas de copies -->
+    <div id="dv-pu-copie" style="display:none;"></div>
+
+    <p id="reglement">Règlement par chèque, espèces ou virement sur demande<br></p>
+
+
+    <div class="dv-note" id="dvNote" style="display:none;">
+      <strong>Note</strong>
+      <span id="dvNoteTexte"></span>
+    </div>
+
+    <div class="dv-signature">
+      <em>Signature suivi de la mention "bon pour accord" : </em><br>
+    </div>
+
+
+    <div class="dv-footer">
+      TVA non applicable - article 293 B du CGI <span id="dv-footer-validite"> · Devis valable 30 jours.</span><br>
+      RisoLab · Champ des Possibles · Ferme de La Mhotte · 03210 Saint Menoux · Siret 395 220 304 00012 · APE 9002 Z
+
+        <p id="archivage">Dans le cadre du projet de constitution de l’archive de l’atelier de risographie, nous vous demandons de garder une copie <br>
+      des fichiers d’impression, dans le cas d’un réusage il sera à nouveau contractualisé, l’artiste conserve la propriété intellectuelle</p> 
+    </div>
+
+  </div>
+
+  <script src="Site/script.js"></script>
+
+</body>
+
+</html>
